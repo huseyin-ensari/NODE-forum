@@ -12,10 +12,23 @@ const blockUser = asyncErrorHandler(async (req, res, next) => {
 
   return res.status(200).json({
     success: true,
-    message: 'Block - Unblock successfull',
+    message: 'Block - Unblock successful',
+  });
+});
+
+const deleteUser = asyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+  await user.remove();
+
+  return res.status(200).json({
+    success: true,
+    message: 'Delete operation successful',
   });
 });
 
 module.exports = {
   blockUser,
+  deleteUser,
 };

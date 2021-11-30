@@ -6,12 +6,13 @@ const {
 const {
   checkUserExist,
 } = require('../middlewares/database/databaseErrorHelpers');
-const { blockUser } = require('../controllers/adminController');
+const { blockUser, deleteUser } = require('../controllers/adminController');
 
 router.use([getAccessToRoute, getAdminAccess]);
 
 // /api/admin
 router.get('/block/:id', checkUserExist, blockUser);
+router.delete('/user/:id', checkUserExist, deleteUser);
 
 // TODO block user
 
