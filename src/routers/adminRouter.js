@@ -14,6 +14,4 @@ router.use([getAccessToRoute, getAdminAccess]);
 router.get('/block/:id', checkUserExist, blockUser);
 router.delete('/user/:id', checkUserExist, deleteUser);
 
-// TODO block user
-
 module.exports = router;
