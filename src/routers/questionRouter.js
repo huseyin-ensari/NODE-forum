@@ -4,6 +4,7 @@ const {
   getAllQuestion,
   getSingleQuestion,
   editQuestion,
+  deleteQuestion,
 } = require('../controllers/questionController');
 const {
   checkQuestionExist,
@@ -21,6 +22,11 @@ router.put(
   '/:id',
   [getAccessToRoute, checkQuestionExist, getQuestionOwnerAccess],
   editQuestion
+);
+router.delete(
+  '/:id',
+  [getAccessToRoute, checkQuestionExist, getQuestionOwnerAccess],
+  deleteQuestion
 );
 
 module.exports = router;
