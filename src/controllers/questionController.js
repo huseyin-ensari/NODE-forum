@@ -78,6 +78,29 @@ const likeQuestion = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const undoLikeQuestion = asyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const question = await Question.findById(id);
+
+  if (!question.likes.includes(req.user.id)) {
+    return next(
+      new CustomerError(
+        'You can not undo like operation for this question',
+        400
+      )
+    );
+  }
+
+  const index = question.likes.indexOf(req.user.id);
+  question.likes.splice(index, 1);
+  await question.save();
+
+  res.status(200).json({
+    success: true,
+    data: question,
+  });
+});
 module.exports = {
   askNewQuestion,
   getAllQuestion,
@@ -85,4 +108,5 @@ module.exports = {
   editQuestion,
   deleteQuestion,
   likeQuestion,
+  undoLikeQuestion,
 };
