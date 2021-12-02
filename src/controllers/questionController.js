@@ -60,10 +60,29 @@ const deleteQuestion = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const likeQuestion = asyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const question = await Question.findById(id);
+
+  if (question.likes.includes(req.user.id)) {
+    return next(new CustomError('You already liked this question', 400));
+  }
+
+  question.likes.push(req.user.id);
+  await question.save();
+
+  res.status(200).json({
+    success: true,
+    data: question,
+  });
+});
+
 module.exports = {
   askNewQuestion,
   getAllQuestion,
   getSingleQuestion,
   editQuestion,
   deleteQuestion,
+  likeQuestion,
 };
