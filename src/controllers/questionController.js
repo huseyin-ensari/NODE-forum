@@ -33,8 +33,25 @@ const getSingleQuestion = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const editQuestion = asyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+
+  const question = await Question.findById(id);
+  question.title = title;
+  question.content = content;
+
+  question.save();
+
+  return res.status(200).json({
+    success: true,
+    data: question,
+  });
+});
+
 module.exports = {
   askNewQuestion,
   getAllQuestion,
   getSingleQuestion,
+  editQuestion,
 };
