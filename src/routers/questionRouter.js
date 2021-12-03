@@ -8,6 +8,7 @@ const {
   likeQuestion,
   undoLikeQuestion,
 } = require('../controllers/questionController');
+const answerRouter = require('./answerRouter');
 const {
   checkQuestionExist,
 } = require('../middlewares/database/databaseErrorHelpers');
@@ -36,5 +37,8 @@ router.get(
   [getAccessToRoute, checkQuestionExist],
   undoLikeQuestion
 );
+
+// answer router
+router.use('/:questionID/answers', checkQuestionExist, answerRouter);
 
 module.exports = router;
