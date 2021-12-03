@@ -19,6 +19,20 @@ const addAnswer = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const getAllAnswersByQuestion = asyncErrorHandler(async (req, res, next) => {
+  const { questionID } = req.params;
+
+  const question = await Question.findById(questionID).populate('answers');
+  const answers = question.answers;
+
+  return res.status(200).json({
+    success: true,
+    count: answers.length,
+    data: answers,
+  });
+});
+
 module.exports = {
   addAnswer,
+  getAllAnswersByQuestion,
 };
