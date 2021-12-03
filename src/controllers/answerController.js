@@ -32,7 +32,27 @@ const getAllAnswersByQuestion = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const getSingleAnswer = asyncErrorHandler(async (req, res, next) => {
+  const { answerID } = req.params;
+
+  const answer = await Answer.findById(answerID)
+    .populate({
+      path: 'question',
+      select: 'title',
+    })
+    .populate({
+      path: 'user',
+      select: 'name profileImage',
+    });
+
+  return res.status(200).json({
+    success: true,
+    data: answer,
+  });
+});
+
 module.exports = {
   addAnswer,
   getAllAnswersByQuestion,
+  getSingleAnswer,
 };
