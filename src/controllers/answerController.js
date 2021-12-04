@@ -65,9 +65,25 @@ const editAnswer = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const deleteAnswer = asyncErrorHandler(async (req, res, next) => {
+  const { answerID, questionID } = req.params;
+
+  await Answer.findByIdAndRemove(answerID);
+
+  const question = await Question.findById(questionID);
+  question.answers.splice(question.answers.indexOf(answerID), 1);
+  await question.save();
+
+  return res.status(200).json({
+    success: true,
+    message: 'Answer delete operation successful',
+  });
+});
+
 module.exports = {
   addAnswer,
   getAllAnswersByQuestion,
   getSingleAnswer,
   editAnswer,
+  deleteAnswer,
 };

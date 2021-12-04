@@ -10,6 +10,7 @@ const {
   getAllAnswersByQuestion,
   getSingleAnswer,
   editAnswer,
+  deleteAnswer,
 } = require('../controllers/answerController');
 const {
   getAnswerOwnerAccess,
@@ -23,6 +24,11 @@ router.put(
   '/:answerID',
   [checkQuestionAndAnswerExist, getAccessToRoute, getAnswerOwnerAccess],
   editAnswer
+);
+router.delete(
+  '/:answerID',
+  [checkQuestionAndAnswerExist, getAccessToRoute, getAnswerOwnerAccess],
+  deleteAnswer
 );
 
 module.exports = router;
