@@ -51,8 +51,23 @@ const getSingleAnswer = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+const editAnswer = asyncErrorHandler(async (req, res, next) => {
+  const { answerID } = req.params;
+  const { content } = req.body;
+
+  const answer = await Answer.findById(answerID);
+  answer.content = content;
+  await answer.save();
+
+  return res.status(200).json({
+    success: true,
+    data: answer,
+  });
+});
+
 module.exports = {
   addAnswer,
   getAllAnswersByQuestion,
   getSingleAnswer,
+  editAnswer,
 };

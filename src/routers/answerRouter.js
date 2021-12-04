@@ -9,11 +9,20 @@ const {
   addAnswer,
   getAllAnswersByQuestion,
   getSingleAnswer,
+  editAnswer,
 } = require('../controllers/answerController');
+const {
+  getAnswerOwnerAccess,
+} = require('../middlewares/authorization/authMiddleware');
 
 // /api/questions/questionID/answers
 router.post('/', getAccessToRoute, addAnswer);
 router.get('/', getAllAnswersByQuestion);
 router.get('/:answerID', checkQuestionAndAnswerExist, getSingleAnswer);
+router.put(
+  '/:answerID',
+  [checkQuestionAndAnswerExist, getAccessToRoute, getAnswerOwnerAccess],
+  editAnswer
+);
 
 module.exports = router;

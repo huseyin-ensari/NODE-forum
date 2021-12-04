@@ -7,6 +7,7 @@ const {
 } = require('../../helpers/auth/tokenHelpers');
 const User = require('../../models/User');
 const Question = require('../../models/Question');
+const Answer = require('../../models/Answer');
 
 const getAccessToRoute = (req, res, next) => {
   const { JWT_SECRET } = process.env;
@@ -56,8 +57,22 @@ const getQuestionOwnerAccess = asyncErrorHandler(async (req, res, next) => {
   next();
 });
 
+const getAnswerOwnerAccess = asyncErrorHandler(async (req, res, next) => {
+  const userID = req.user.id;
+  const answerID = req.params.answerID;
+
+  const answer = await Answer.findById(answerID);
+
+  if (answer.user != userID) {
+    return next(new CustomError('Only owner can handle this operation', 403));
+  }
+
+  next();
+});
+
 module.exports = {
   getAccessToRoute,
   getAdminAccess,
   getQuestionOwnerAccess,
+  getAnswerOwnerAccess,
 };
