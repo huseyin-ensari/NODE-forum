@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "import" : "node dummy-generator --import",
+    "delete" : "node dummy-generator --delete"
   },
   "keywords": [
     "forum",
