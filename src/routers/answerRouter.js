@@ -11,6 +11,8 @@ const {
   getSingleAnswer,
   editAnswer,
   deleteAnswer,
+  likeAnswer,
+  undoLikeAnswer,
 } = require('../controllers/answerController');
 const {
   getAnswerOwnerAccess,
@@ -20,6 +22,16 @@ const {
 router.post('/', getAccessToRoute, addAnswer);
 router.get('/', getAllAnswersByQuestion);
 router.get('/:answerID', checkQuestionAndAnswerExist, getSingleAnswer);
+router.get(
+  '/:answerID/like',
+  [checkQuestionAndAnswerExist, getAccessToRoute],
+  likeAnswer
+);
+router.get(
+  '/:answerID/undolike',
+  [checkQuestionAndAnswerExist, getAccessToRoute],
+  undoLikeAnswer
+);
 router.put(
   '/:answerID',
   [checkQuestionAndAnswerExist, getAccessToRoute, getAnswerOwnerAccess],
