@@ -16,11 +16,22 @@ const {
   getAccessToRoute,
   getQuestionOwnerAccess,
 } = require('../middlewares/authorization/authMiddleware');
+const questionQuery = require('../middlewares/query/questionQuery');
+const Question = require('../models/Question');
 
 // /api/questions
 router.post('/ask', getAccessToRoute, askNewQuestion);
 router.get('/:id', checkQuestionExist, getSingleQuestion);
-router.get('/', getAllQuestion);
+router.get(
+  '/',
+  questionQuery(Question, {
+    population: {
+      path: 'user',
+      select: 'name profileImage',
+    },
+  }),
+  getAllQuestion
+);
 router.put(
   '/:id',
   [getAccessToRoute, checkQuestionExist, getQuestionOwnerAccess],

@@ -15,12 +15,7 @@ const askNewQuestion = asyncErrorHandler(async (req, res, next) => {
 });
 
 const getAllQuestion = asyncErrorHandler(async (req, res, next) => {
-  const questions = await Question.find();
-
-  return res.status(200).json({
-    success: true,
-    data: questions,
-  });
+  return res.status(200).json(res.queryResults);
 });
 
 const getSingleQuestion = asyncErrorHandler(async (req, res, next) => {
@@ -70,6 +65,7 @@ const likeQuestion = asyncErrorHandler(async (req, res, next) => {
   }
 
   question.likes.push(req.user.id);
+  question.likeCount = question.likes.length;
   await question.save();
 
   res.status(200).json({
@@ -94,6 +90,7 @@ const undoLikeQuestion = asyncErrorHandler(async (req, res, next) => {
 
   const index = question.likes.indexOf(req.user.id);
   question.likes.splice(index, 1);
+  question.likeCount = question.likes.length;
   await question.save();
 
   res.status(200).json({
