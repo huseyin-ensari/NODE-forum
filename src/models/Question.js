@@ -28,12 +28,20 @@ const QuestionSchema = new Schema({
       ref: 'User',
     },
   ],
+  likeCount: {
+    type: Number,
+    default: 0,
+  },
   answers: [
     {
       type: mongoose.Types.ObjectId,
       ref: 'Answer',
     },
   ],
+  answerCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 QuestionSchema.pre('save', function (next) {
