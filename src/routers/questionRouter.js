@@ -17,11 +17,30 @@ const {
   getQuestionOwnerAccess,
 } = require('../middlewares/authorization/authMiddleware');
 const questionQuery = require('../middlewares/query/questionQuery');
+const answerQuery = require('../middlewares/query/answerQuery');
 const Question = require('../models/Question');
 
 // /api/questions
 router.post('/ask', getAccessToRoute, askNewQuestion);
-router.get('/:id', checkQuestionExist, getSingleQuestion);
+router.get(
+  '/:id',
+  [
+    checkQuestionExist,
+    answerQuery(Question, {
+      population: [
+        {
+          path: 'user',
+          select: 'name',
+        },
+        {
+          path: 'answers',
+          select: 'content',
+        },
+      ],
+    }),
+  ],
+  getSingleQuestion
+);
 router.get(
   '/',
   questionQuery(Question, {
