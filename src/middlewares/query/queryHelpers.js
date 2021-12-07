@@ -26,14 +26,14 @@ const questionSortQuery = (query, req) => {
   return query.sort('-createdAt');
 };
 
-const paginationQuery = async (model, query, req) => {
+const paginationQuery = async (totalDocuments, query, req) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 5;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-  const total = await model.countDocuments();
 
   const pagination = {};
+  const total = totalDocuments;
 
   if (startIndex > 0) {
     pagination.previous = {
@@ -50,7 +50,8 @@ const paginationQuery = async (model, query, req) => {
   }
 
   return {
-    query: query.skip(startIndex).limit(limit),
+    query:
+      query === undefined ? undefined : query.skip(startIndex).limit(limit),
     pagination,
   };
 };

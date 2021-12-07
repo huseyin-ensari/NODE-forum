@@ -19,8 +19,9 @@ const questionQuery = function (model, options) {
 
     // pagination
 
+    const total = await model.countDocuments();
     const paginationResult = await queryHelpers.paginationQuery(
-      model,
+      total,
       query,
       req
     );
