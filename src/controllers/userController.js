@@ -10,12 +10,7 @@ const getSingleUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 const getAllUser = asyncErrorHandler(async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    success: true,
-    data: users,
-  });
+  return res.status(200).json(res.queryResults);
 });
 
 module.exports = {
