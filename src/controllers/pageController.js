@@ -10,8 +10,13 @@ const userPage = (req, res, next) => {
   return res.render('user');
 };
 
+const questionPage = (req, res, next) => {
+  return res.render('question');
+};
+
 module.exports = {
   homePage,
   diagramPage,
   userPage,
+  questionPage,
 };
