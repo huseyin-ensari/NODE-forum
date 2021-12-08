@@ -1,0 +1,92 @@
+include ./layouts/main-layout
+
+block content 
+
+
+section.text-white.text-center.pb-5
+ p.h6.text-white.m-3 https://node-forum-api.herokuapp.com/
+  // auth
+  p.h3.text-white.m-3 /api/auth/...
+  table.table.table-success.table-striped.table-hover.container
+    thead
+      tr
+        th(scope='col') Method
+        th(scope='col-4') Purpose
+        th(scope='col-6') Url
+        th(scope='col-6') Reguired
+    tbody
+      tr
+        th(scope='row') POST
+        td Register
+        td /register
+        td
+      tr
+        th(scope='row') POST
+        td Login
+        td /login
+        td
+      tr
+        th(scope='row') GET
+        td Logout
+        td /logout
+        td
+      tr
+        th(scope='row') POST
+        td Profile Image Upload
+        td /upload
+        td Must be logged in
+      tr
+        th(scope='row') POST
+        td Forgot Password
+        td /forgotpassword
+        td
+      tr
+        th(scope='row') PUT
+        td Reset Password
+        td /resetpassword
+        td
+      tr
+        th(scope='row') PUT
+        td Edit user information
+        td /edit
+        td Must be logged in
+  // users
+  p.h3.text-white.m-3 /api/users/...
+  table.table.table-success.table-striped.table-hover.container
+    thead
+      tr
+        th(scope='col') Method
+        th(scope='col-4') Purpose
+        th(scope='col-6') Url
+        th(scope='col-6') Reguired
+    tbody
+      tr
+        th(scope='row') GET
+        td Get single user
+        td /{ user_id }
+        td
+      tr
+        th(scope='row') GET
+        td Get all users
+        td /
+        td
+  // admin
+  p.h3.text-white.m-3 /api/admin/...
+  table.table.table-success.table-striped.table-hover.container
+    thead
+      tr
+        th(scope='col') Method
+        th(scope='col-4') Purpose
+        th(scope='col-6') Url
+        th(scope='col-6') Reguired
+    tbody
+      tr
+        th(scope='row') GET
+        td Block user
+        td /block/{ user_id }
+        td Must be admin logged in
+      tr
+        th(scope='row') DELETE
+        td Delete user
+        td /user/{ user_id }
+        td Must be admin logged in
