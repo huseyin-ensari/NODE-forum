@@ -1,0 +1,52 @@
+include ./layouts/main-layout
+
+block content 
+
+section.text-white.text-center.pb-5
+  p.h6.text-white.m-3 https://node-forum-api.herokuapp.com/
+  // answer
+  p.h3.text-white.m-3 /api/questions/{ questionID }/answers
+  table.table.table-success.table-striped.table-hover.container
+    thead
+      tr
+        th(scope='col') Method
+        th(scope='col-4') Purpose
+        th(scope='col-6') Url
+        th(scope='col-6') Reguired
+    tbody
+      tr
+        th(scope='row') POST
+        td Add answer
+        td /
+        td Must be logged in
+      tr
+        th(scope='row') GET
+        td Get all answers by question
+        td /
+        td
+      tr
+        th(scope='row') GET
+        td Get single answer
+        td /{ answer_id }
+        td
+      // burdayız
+      tr
+        th(scope='row') PUT
+        td Edit answer
+        td /{ answer_id }
+        td Must be logged in
+      tr
+        th(scope='row') DELETE
+        td Delete answer
+        td /{ answer_id }
+        td Must be logged in
+      tr
+        th(scope='row') GET
+        td Like answer
+        td /{ question_id }/like
+        td Must be logged in
+      tr
+        th(scope='row') GET
+        td Undo Like answer
+        td /{ question_id }/undolike
+        td Must be logged in

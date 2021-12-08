@@ -14,9 +14,14 @@ const questionPage = (req, res, next) => {
   return res.render('question');
 };
 
+const answerPage = (req, res, next) => {
+  return res.render('answer');
+};
+
 module.exports = {
   homePage,
   diagramPage,
   userPage,
   questionPage,
+  answerPage,
 };
